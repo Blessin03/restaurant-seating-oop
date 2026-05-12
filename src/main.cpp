@@ -12,13 +12,13 @@
 
 
 using namespace std;
-int main{
+int main(){
     // create ReservationSystem object
-    ReservationSystem reservetionSys
+    ReservationSystem reservationSys;
     // load tables from data/tables.txt
-    fsteam tableFile("../data/tables.txt");
+    reservationSys.loadTables("../data/tables.txt");
     // load reservations from data/reservations.csv
-    fsteam reservationFile("../data/reservations.csv");
+    reservationSys.loadReservations("../data/reservations.csv");
 
 
     // menu loop
@@ -56,12 +56,13 @@ case 7:
 case 8:
 
     cout << "Thank you for using Jalen's Restaurant Seating Management System!\n";
+    reservationSys.saveReservations("../data/reservations.csv");
     cout << "saving data and exiting...\n";
     break;
 
 default:
     cout << "Invalid choice. :( Please try again.\n";
-    
+
 }
 } while (choice != 8);
 

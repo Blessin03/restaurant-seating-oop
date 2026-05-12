@@ -20,6 +20,18 @@ class ReservationSystem {
 
         int nextReservationId;
 
+        //maps table id to vector index in tables vector
+        int findTableIndexFromId( int tableId);
+
+        //check duplicate customer names
+        int findReservationIndexFromName( string& customerName);
+
+        //smallest available table that fits the party size
+        int bestTableForSlot( int partySize, int slot);
+
+
+        
+
     public:
         ReservationSystem();
 

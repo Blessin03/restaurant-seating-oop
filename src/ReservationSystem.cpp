@@ -125,3 +125,9 @@ bool ReservationSystem::loadReservations(string& filename){
     // return true
     return true;
   }
+
+
+  int ReservationSystem::findReservationIndexFromName(string& customerName) {
+    for(int i = 0; i < reservations.size(); i++){
+        if (reservations.getName())
+    }
