@@ -49,3 +49,37 @@ string ReservationSystem::slotToTime(int slotIdx){
     }
     return to_string(12 + slotIdx) + ":00";
 }
+
+void ReservationSystem::initializeAvailability() {
+    for (int slotIndex = 0; slotIndex < NUM_SLOTS; slotIndex++) {
+        for (int tableIndex = 0; tableIndex < NUM_TABLES; tableIndex++) {
+            assignedReservationId[slotIndex][tableIndex] = -1;
+        }
+    }
+}
+
+bool ReservationSystem::isAvailable(int slotIndex, int tableIndex) const {
+    if (slotIndex < 0 || slotIndex >= NUM_SLOTS) {
+        return false;
+    }
+
+    if (tableIndex < 0 || tableIndex >= NUM_TABLES) {
+        return false;
+    }
+
+    return assignedReservationId[slotIndex][tableIndex] == -1;
+}
+
+void ReservationSystem::printAvailabilityGridDebug() const {
+    cout << "Availability Grid Debug:" << endl;
+
+    for (int slotIndex = 0; slotIndex < NUM_SLOTS; slotIndex++) {
+        cout << "Slot " << slotIndex << ": ";
+
+        for (int tableIndex = 0; tableIndex < NUM_TABLES; tableIndex++) {
+            cout << assignedReservationId[slotIndex][tableIndex] << " ";
+        }
+
+        cout << endl;
+    }
+}

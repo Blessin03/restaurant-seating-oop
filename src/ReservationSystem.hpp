@@ -16,6 +16,11 @@ class ReservationSystem {
 
         vector<Reservation> reservations;
 
+        static const int NUM_SLOTS = 12;
+        static const int NUM_TABLES = 8;
+
+        int assignedReservationId[NUM_SLOTS][NUM_TABLES];
+
 
 
         
@@ -29,4 +34,9 @@ class ReservationSystem {
     bool isValidSlot(int slotIdx) ;
     string slotToTime(int slotIdx) ;
 
+
+
+    void initializeAvailability();
+    bool isAvailable(int slotIndex, int tableIndex) const;
+    void printAvailabilityGridDebug() const;
 };
