@@ -1,47 +1,34 @@
-#include "ReservationSystem.h"
+#pragma once
+#include <string>
 
-ReservationSystem::ReservationSystem()
-    : assignedReservationId(12, std::vector<int>(8, -1)),
-      nextReservationId(1)
+
+/**
+ * File: Reservation.hpp
+ * Author: Jalen Thornhill
+ * Created: 2026-05-12
+ * Last Modified: 2026-05-12
+*/
+using namespace std;
+
+class Reservation
 {
-}
+private:
+    int id;
+    string name;
+    int partySize;
+    int slotIdx;
+    int tableId;
+public:
+    Reservation();
+    Reservation(int id, string name, int partySize, int slotIdx, int tableId);
+    ~Reservation();
 
-bool ReservationSystem::loadTables(const std::string& filename) {
-    return false;
-}
+    int getId() const;
+    string getName() const;
+    int getPartySize() const;
+    int getSlotIdx() const;
+    int getTableId() const;
+};
 
-bool ReservationSystem::loadReservations(const std::string& filename) {
-    return false;
-}
 
-bool ReservationSystem::saveReservations(const std::string& filename) const {
-    return false;
-}
 
-void ReservationSystem::addReservation() {
-    // later: ask for input, validate, assign table
-}
-
-void ReservationSystem::cancelReservation() {
-    // later: cancel by ID or name + slot
-}
-
-void ReservationSystem::searchByName() const {
-    // later: search reservation list
-}
-
-void ReservationSystem::showTimeSlotOverview() const {
-    // later: print selected slot
-}
-
-void ReservationSystem::showMaitreDReport() const {
-    // later: print full grid
-}
-
-void ReservationSystem::showCapacityUtilization() const {
-    // later: print seats booked/available per slot
-}
-
-bool ReservationSystem::exportMaitreDReport(const std::string& filename) const {
-    return false;
-}
