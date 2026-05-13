@@ -37,3 +37,15 @@ void ReservationSystem::printTables(){
         cout << "Table: " << table.getID() << "cap: " << table.getCapacity();
     }
 }
+
+bool ReservationSystem::isValidSlot(int slotIdx){
+    return slotIdx >= 0 && slotIdx < 12;
+}
+
+string ReservationSystem::slotToTime(int slotIdx){
+
+    if (!isValidSlot(slotIdx)) {
+        return "Invalid Slot";
+    }
+    return to_string(12 + slotIdx) + ":00";
+}

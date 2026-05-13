@@ -26,4 +26,7 @@ class ReservationSystem {
     void loadDefaultTables();
     void printTables() ;
 
+    bool isValidSlot(int slotIdx) ;
+    string slotToTime(int slotIdx) ;
+
 };
