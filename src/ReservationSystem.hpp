@@ -26,24 +26,27 @@ class ReservationSystem {
         
 
     public:
-        ReservationSystem();
+    ReservationSystem();
 
     void loadDefaultTables();
-    void printTables() ;
+    void printTables();
+    void initializeAvailability();
+    void printAvailabilityGridDebug() const;
 
-    bool isValidSlot(int slotIdx) ;
+
+    bool isValidSlot(int slotIdx);
+    bool isAvailable(int slotIndex, int tableIndex) const;
+    bool customerNameExists(string& name);
+
     string slotToTime(int slotIdx) ;
 
 
 
-    void initializeAvailability();
-    bool isAvailable(int slotIndex, int tableIndex) const;
-    void printAvailabilityGridDebug() const;
 
     void addReservationObject(const Reservation& reservation);
     void printReservations() const;
 
 
-    bool customerNameExsits(string name);
-    
+    int findBestTable(int slotIdx, int partySize);
+
 };

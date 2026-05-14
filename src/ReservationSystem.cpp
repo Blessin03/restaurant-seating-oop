@@ -6,6 +6,8 @@
 
 #include <sstream>
 
+#include<climits>
+
 #include "ReservationSystem.hpp"
 using namespace std;
 
@@ -106,8 +108,42 @@ void ReservationSystem::printReservations() const {
     }
 }
 
-bool ReservationSystem::customerNameExsits(string name){
+bool ReservationSystem::customerNameExists(string& name){
     for(auto& person : reservations) if (person.getName() == name) return true;
 
     return false;
+}
+
+int ReservationSystem::findBestTable(int slotIdx, int partySize){
+   if(!isValidSlot(slotIdx)) return -1;
+   if (partySize <= 0) return -1;
+   
+
+   int tableIdx = 0;
+   int bestFit = INT_MAX;
+   int bestTable = 0;
+   for(auto& table : tables){
+
+    if (!isAvailable( slotIdx,  tableIdx)) {
+        tableIdx++;
+        continue;
+   }
+
+   if(table.getCapacity() < partySize){
+        tableIdx++;
+        continue;
+   }
+
+   if(table.getCapacity() == partySize) return table.getID();
+   
+    if (table.getCapacity()  < bestFit){
+        bestFit = table.getCapacity();
+        bestTable = table.getID();
+    }
+     
+
+    tableIdx++;
+   }
+
+   return bestFit == INT_MAX ? -1 : bestTable;
 }
