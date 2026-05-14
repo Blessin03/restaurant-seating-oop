@@ -20,6 +20,7 @@ class ReservationSystem {
         static const int NUM_TABLES = 8;
 
         int assignedReservationId[NUM_SLOTS][NUM_TABLES];
+        int nextReservationId   = 1;
 
 
 
@@ -37,6 +38,7 @@ class ReservationSystem {
     bool isValidSlot(int slotIdx);
     bool isAvailable(int slotIndex, int tableIndex) const;
     bool customerNameExists(string& name);
+    bool addReservation(string& name, int partySize, int slotIdx);
 
     string slotToTime(int slotIdx) ;
 
@@ -48,5 +50,8 @@ class ReservationSystem {
 
 
     int findBestTable(int slotIdx, int partySize);
+    int findBestTableID(int tableId);
 
 };
+
+

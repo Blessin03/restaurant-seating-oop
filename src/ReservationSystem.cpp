@@ -109,7 +109,7 @@ void ReservationSystem::printReservations() const {
 }
 
 bool ReservationSystem::customerNameExists(string& name){
-    for(auto& person : reservations) if (person.getName() == name) return true;
+    for(auto& reservation : reservations) if (reservation.getName() == name) return true;
 
     return false;
 }
@@ -146,4 +146,32 @@ int ReservationSystem::findBestTable(int slotIdx, int partySize){
    }
 
    return bestFit == INT_MAX ? -1 : bestTable;
+}
+
+int ReservationSystem::findBestTableID(int tableId){
+    for (auto& table : tables) if (table.getID() == tableId) return table.getID();
+
+    return -1;
+}
+
+bool ReservationSystem::addReservation(string& name, int partySize, int slotIdx){
+    if (partySize <= 0) return false;
+    if (customerNameExists(name)) return false;
+    if (!isValidSlot(slotIdx)) return false;
+ 
+
+    int bestTableId = findBestTable(slotIdx, partySize);
+
+    if (bestTableId == -1) return false;
+
+    int tableIdx = findBestTableID(bestTableId);
+
+        int reservationId = nextReservationId;
+            Reservation reservation(reservationId, name, partySize, slotIdx, bestTableId);
+
+            reservations.push_back(reservation);
+
+            assignedReservationId[slotIdx][tableIdx] = reservationId;
+            nextReservationId++;
+            return true;
 }
