@@ -83,3 +83,31 @@ void ReservationSystem::printAvailabilityGridDebug() const {
         cout << endl;
     }
 }
+
+void ReservationSystem::addReservationObject(const Reservation& reservation) {
+    reservations.push_back(reservation);
+}
+
+void ReservationSystem::printReservations() const {
+    cout << "Reservations \n"; 
+
+    if (reservations.empty()) {
+        cout << "No reservations found.\n"; 
+        return;
+    }
+
+    for (const auto& reservation : reservations) {
+        cout << "ID: " << reservation.getId() << endl;
+        cout << "Name: " << reservation.getName() << endl;
+        cout << "Party Size: " << reservation.getPartySize() << endl;
+        cout << "Slot Index: " << reservation.getSlotIdx() << endl;
+        cout << "Table ID: " << reservation.getTableId() << endl;
+        cout << endl;
+    }
+}
+
+bool ReservationSystem::customerNameExsits(string name){
+    for(auto& person : reservations) if (person.getName() == name) return true;
+
+    return false;
+}

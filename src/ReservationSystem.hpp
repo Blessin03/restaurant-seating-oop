@@ -39,4 +39,11 @@ class ReservationSystem {
     void initializeAvailability();
     bool isAvailable(int slotIndex, int tableIndex) const;
     void printAvailabilityGridDebug() const;
+
+    void addReservationObject(const Reservation& reservation);
+    void printReservations() const;
+
+
+    bool customerNameExsits(string name);
+    
 };
