@@ -39,6 +39,8 @@ class ReservationSystem {
     bool isAvailable(int slotIndex, int tableIndex) const;
     bool customerNameExists(string& name);
     bool addReservation(string& name, int partySize, int slotIdx);
+    bool cancelReservationById(int reservationId);
+    bool cancelReservationByNameAndSlot(string& name, int slotIdx);
 
     string slotToTime(int slotIdx) ;
 
@@ -51,7 +53,7 @@ class ReservationSystem {
 
     int findBestTable(int slotIdx, int partySize);
     int findBestTableID(int tableId);
-
+    int findNearestAlternativeSlot(int requestedSlot, int partySize);
 };
 
 

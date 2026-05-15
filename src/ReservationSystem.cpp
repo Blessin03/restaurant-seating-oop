@@ -175,3 +175,58 @@ bool ReservationSystem::addReservation(string& name, int partySize, int slotIdx)
             nextReservationId++;
             return true;
 }
+
+int ReservationSystem::findNearestAlternativeSlot(int requestedSlot, int partySize) {
+  
+  if (!isValidSlot(requestedSlot)) {
+        return -1;
+    }
+
+ if (findBestTable(requestedSlot, partySize) != -1) {
+        return requestedSlot;
+    }
+  
+  
+    for (int offset = 1; offset < NUM_SLOTS; offset++) {
+        int earlierSlot = requestedSlot - offset;
+        int laterSlot = requestedSlot + offset;
+
+        if (isValidSlot(earlierSlot) && findBestTable(earlierSlot, partySize) != -1) {
+            return earlierSlot;
+        }
+
+        if (isValidSlot(laterSlot) && findBestTable(laterSlot, partySize) != -1) {
+            return laterSlot;
+        }
+    }  
+    return -1;
+}
+
+bool ReservationSystem::cancelReservationById(int reservationId){
+    if (reservationId < 0) return false;
+
+
+    int index = 0;
+    for(auto& reservation : reservations){
+        if(reservation.getId() == reservationId){
+            return index;
+        }
+        index++;
+    }
+    return -1;
+}
+
+
+bool ReservationSystem::cancelReservationByNameAndSlot(string& name, int slotIdx){
+
+      if(!isValidSlot(slotIdx)) return false;
+
+      for(auto& reservation : reservations){
+        if(reservation.getName() == name && reservation.getSlotIdx() == slotIdx){
+                cancelReservationById(reservation.getId());
+                return true;
+        }
+      }
+      
+      return false; 
+}
