@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include<climits>
+    #include<iomanip>
 
 #include "ReservationSystem.hpp"
 using namespace std;
@@ -246,3 +247,39 @@ void ReservationSystem::searchByCustomerName( string& name) {
 
     cout << "No reservation found for customer: " << name << " :( \n";
 }
+
+void ReservationSystem::showTimeSlotOverview(int slotIndex)  {
+    if (!isValidSlot(slotIndex)) {
+        cout << "Invalid slot\n";
+        return;
+    }
+
+    cout << "Time Slot Overview for " << slotToTime(slotIndex) << "\n";
+
+    cout << left << setw(13) << "Table"
+            << setw(13) << "Capacity"
+            << setw(15) << "Status\n";
+
+    int index = 0;
+    string status = "";
+    for(auto& table : tables){
+        status="";
+                if( isAvailable(slotIndex, index )){
+                    status = "available" ;
+                } 
+                else{
+                    for(auto& reservation : reservations){
+                        if (assignedReservationId[slotIndex][index] == reservation.getId()){
+                            status = "booked by " + reservation.getName() + "(size " + to_string(reservation.getPartySize()) +")"; 
+                        }
+                    }
+                }
+
+    cout << left << setw(13) << table.getID()
+            << setw(13) << table.getCapacity()
+            << setw(15) << status << "\n";
+            index++;
+}
+
+}
+

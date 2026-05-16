@@ -49,7 +49,8 @@ class ReservationSystem {
 
     void addReservationObject(const Reservation& reservation);
     void printReservations() const;
-    void searchByCustomerName(string& name) ;
+    void searchByCustomerName(string& name);
+    void showTimeSlotOverview(int slotIndex);
 
 
     int findBestTable(int slotIdx, int partySize);
