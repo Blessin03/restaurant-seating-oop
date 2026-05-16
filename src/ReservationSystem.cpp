@@ -230,3 +230,19 @@ bool ReservationSystem::cancelReservationByNameAndSlot(string& name, int slotIdx
       
       return false; 
 }
+
+void ReservationSystem::searchByCustomerName( string& name) {
+    
+    for(auto& reservation : reservations){
+        if (name == reservation.getName()){
+            cout << "ID: " << reservation.getId() << "\n";
+            cout << "Name: " << reservation.getName() << "\n";
+            cout << "Party Size: " << reservation.getPartySize() << "\n";
+            cout << "Slot Index: " << reservation.getSlotIdx() << "\n";
+            cout << "Table ID: " << reservation.getTableId() << "\n";
+            return;
+        }
+    }
+
+    cout << "No reservation found for customer: " << name << " :( \n";
+}
