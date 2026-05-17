@@ -279,7 +279,51 @@ void ReservationSystem::showTimeSlotOverview(int slotIndex)  {
             << setw(13) << table.getCapacity()
             << setw(15) << status << "\n";
             index++;
+    }
 }
 
+void ReservationSystem::showMaitreReport() {
+    cout << "Maitre-D Report\n\n";
+
+    cout << left << setw(13) << "Table"
+         << setw(13) << "Capacity";
+
+    for (int slotIndex = 0; slotIndex < NUM_SLOTS; slotIndex++) {
+        cout << setw(15) << slotToTime(slotIndex);
+    }
+
+    cout << "\n";
+
+    for (int tableIndex = 0; tableIndex < NUM_TABLES; tableIndex++) {
+        cout << left << setw(13) << tables[tableIndex].getID()
+             << setw(13) << tables[tableIndex].getCapacity();
+
+        for (int slotIndex = 0; slotIndex < NUM_SLOTS; slotIndex++) {
+            int reservationId = assignedReservationId[slotIndex][tableIndex];
+
+            if (reservationId == -1) {
+                cout << setw(15) << "Avail";
+            } 
+            else {
+                string reservationInfo = "ERR";
+
+                for (const auto& reservation : reservations) {
+                    if (reservation.getId() == reservationId) {
+                        reservationInfo = reservation.getName().substr(0, 1)
+                                        + "#"
+                                        + to_string(reservationId);
+                        break;
+                    }
+                }
+
+                cout << setw(15) << reservationInfo;
+            }
+        }
+
+        cout << "\n";
+    }
+
+    cout << "\n";
 }
+
 

@@ -51,6 +51,7 @@ class ReservationSystem {
     void printReservations() const;
     void searchByCustomerName(string& name);
     void showTimeSlotOverview(int slotIndex);
+    void showMaitreReport();
 
 
     int findBestTable(int slotIdx, int partySize);
