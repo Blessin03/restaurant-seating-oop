@@ -408,3 +408,71 @@ bool ReservationSystem::loadTables(const string& filename) {
 
     return !tables.empty();
 }
+
+
+bool ReservationSystem::loadReservations(const string& filename) {
+    ifstream file(filename);
+
+    if(!file.is_open()) {
+        cout << "Error opening file: " << filename << "\n";
+        return false;
+    }
+
+    reservations.clear();
+    initializeAvailability();
+
+    string line;
+    while(getline(file,line)){
+        stringstream ss(line);
+        string idStr, name, partySizeStr, slotIdxStr, tableIdStr;
+
+        if (!getline(ss, idStr, ',')) {
+            cout << "Error with line: " << line << "\n";
+            continue;
+        } 
+        if (!getline(ss, name, ',')) {
+            cout << "Error with line: " << line << "\n";
+            continue;
+        }
+        if (!getline(ss, partySizeStr, ',')) {
+            cout << "Error with line: " << line << "\n";
+            continue;
+        }
+        if (!getline(ss, slotIdxStr, ',')) {
+            cout << "Error with line: " << line << "\n";
+            continue;
+        }
+        if (!getline(ss, tableIdStr, ',')) {
+            cout << "Error with line: " << line << "\n";
+            continue;
+        }
+
+        int id = stoi(idStr);
+        int partySize = stoi(partySizeStr);
+        int slotIdx = stoi(slotIdxStr);
+        int tableId = stoi(tableIdStr);
+
+       Reservation reservation(id, name, partySize, slotIdx, tableId);
+           
+    
+            int tableIdx = findBestTableID(tableId);
+            if(!isValidSlot(slotIdx)) continue;
+            if (tableIdx != -1) {
+                assignedReservationId[slotIdx][tableIdx] = id;
+            }
+            else{
+                continue;
+            }
+
+        
+        if (id >= nextReservationId) {
+    nextReservationId = id + 1;
+}
+
+        reservations.push_back(reservation);
+    }
+
+    file.close();
+
+    return !reservations.empty();
+}
