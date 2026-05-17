@@ -14,11 +14,11 @@
 using namespace std;
 int main(){
     // create ReservationSystem object
-    ReservationSystem reservationSys;
+    ReservationSystem system;
     // load tables from data/tables.txt
-    reservationSys.loadTables("../data/tables.txt");
+    system.loadTables("../data/tables.txt");
     // load reservations from data/reservations.csv
-    reservationSys.loadReservations("../data/reservations.csv");
+    system.loadReservations("../data/reservations.csv");
 
 
     // menu loop
@@ -56,7 +56,7 @@ case 7:
 case 8:
 
     cout << "Thank you for using Jalen's Restaurant Seating Management System!\n";
-    reservationSys.saveReservations("../data/reservations.csv");
+    systemsaveReservations("../data/reservations.csv");
     cout << "saving data and exiting...\n";
     break;
 

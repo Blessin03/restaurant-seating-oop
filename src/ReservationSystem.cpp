@@ -371,3 +371,40 @@ void ReservationSystem::showCapacityUtilizationSummary(){
         }
         
 }
+
+
+bool ReservationSystem::loadTables(const string& filename) {
+    ifstream file(filename);
+
+    if(!file.is_open()) {
+        cout << "Error opening file: " << filename << "\n";
+        return false;
+    }
+
+    tables.clear();
+
+
+    string line;
+    while(getline(file,line)){
+        stringstream ss(line);
+        string idStr, capacityStr;
+
+        if (!getline(ss, idStr, ',')) {
+            cout << "Error with line: " << line << "\n";
+            continue;
+        } 
+        if (!getline(ss, capacityStr, ',')) {
+            cout << "Error with line: " << line << "\n";
+            continue;
+        }
+        int id = stoi(idStr);
+        int capacity = stoi(capacityStr);
+
+       Table table(id, capacity);
+         tables.push_back(table);
+    }
+
+    file.close();
+
+    return !tables.empty();
+}

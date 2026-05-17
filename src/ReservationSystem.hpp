@@ -41,6 +41,7 @@ class ReservationSystem {
     bool addReservation(string& name, int partySize, int slotIdx);
     bool cancelReservationById(int reservationId);
     bool cancelReservationByNameAndSlot(string& name, int slotIdx);
+    bool loadTables(const string& filename);
 
     string slotToTime(int slotIdx) ;
 
