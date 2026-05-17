@@ -326,4 +326,48 @@ void ReservationSystem::showMaitreReport() {
     cout << "\n";
 }
 
+void ReservationSystem::showCapacityUtilizationSummary(){
+    cout <<  "Capacity Utilization Summary\n\n";
 
+
+    cout<< left<< setw(13) << "Time Slot" 
+        << setw(20) << "Booked Seats"
+        << setw(25) << "Available Seats"
+        << setw(20) << "Utilization by %\n";
+
+
+        int bookedSeats, totalSeats, index;
+        for(int slotIdx = 0; slotIdx < NUM_SLOTS; slotIdx++){
+            bookedSeats =0;
+            totalSeats = 0;
+            index = 0;
+
+            for(auto& table : tables){
+                totalSeats += table.getCapacity();
+
+                int reservationId = assignedReservationId[slotIdx][index];
+                index++;
+                if(reservationId != -1){
+
+                    for(auto& reservation : reservations){
+                        if (reservationId == reservation.getId())
+                        bookedSeats += reservation.getPartySize();
+                        break;
+                    }
+                    
+                }
+            }
+            if(totalSeats == 0) {
+            cout << "wait... Your restaurant has to tables :/";
+            return;
+        }
+        int availableSeats = totalSeats - bookedSeats;
+        double utilization = static_cast<double>((bookedSeats) / static_cast<double> (totalSeats)) * 100;
+
+        cout << left << setw(13) << slotToTime(slotIdx)
+                << setw(20) << bookedSeats
+                << setw(25) << availableSeats
+                << setw(20) << fixed << setprecision(2) << utilization << "%\n";
+        }
+        
+}
