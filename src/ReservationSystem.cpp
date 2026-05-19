@@ -476,3 +476,24 @@ bool ReservationSystem::loadReservations(const string& filename) {
 
     return !reservations.empty();
 }
+
+bool ReservationSystem::exportMaitreReport(const string& filename){
+    ofstream file(filename);
+
+    if(!file.is_open()){
+        cout << "Error opening file " << filename << "\n";
+        return false;
+    }
+
+    streambuf* originalCoutBuffer = cout.rdbuf();
+    cout.rdbuf(file.rdbuf());
+
+    showMaitreReport();
+
+    cout.rdbuf(originalCoutBuffer);
+
+file.close();
+
+
+    return true;
+}

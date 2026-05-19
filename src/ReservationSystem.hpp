@@ -43,6 +43,7 @@ class ReservationSystem {
     bool cancelReservationByNameAndSlot(string& name, int slotIdx);
     bool loadTables(const string& filename);
     bool loadReservations(const string& filename);
+    bool exportMaitreReport(const string& filename);
 
     string slotToTime(int slotIdx) ;
 
