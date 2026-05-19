@@ -40,24 +40,83 @@ cin >> choice;
 
 switch (choice){
 case 1:
+cout<<"Enter the name of the customer: ";
+string name;
+cin >> name;
+cout<<"Enter their party size: ";
+int partySize;
+cin >> partySize;
+cout<<"Enter the desired time slot (0-11, where 0=12:00, 1=13:00, ..., 11=23:00): ";
+int slotIdx;
+cin >> slotIdx;
+
+if (system.addReservation(name, partySize, slotIdx)){
+    cout << "Reservation added successfully!\n";
+} else {
+    cout << "Failed to add reservation.\n";
+    cout << "Suggested alternative time slot: " << system.slotToTime(system.findNearestAlternativeSlot(slotIdx, partySize)) << "\n";
+}
+
     break;
 case 2:
+cout << "Cancel by:\n1. Reservation ID\n2. Customer Name and Time Slot\nChoose an option: ";
+int cancelChoice;
+cin >> cancelChoice;
+if (cancelChoice == 1){
+    cout << "Enter the reservation ID to cancel: ";
+    int reservationId;
+    cin >> reservationId;
+    if (system.cancelReservationById(reservationId)){
+        cout << "Reservation cancelled successfully!\n";
+    } else {
+        cout << "Failed to cancel reservation. ID not found.\n";
+    }
+} else if (cancelChoice == 2){
+    cout << "Enter the customer name: ";
+    string cancelName;
+    cin >> cancelName;
+    cout << "Enter the time slot (0-11): ";
+    int cancelSlot;
+    cin >> cancelSlot;
+    if (system.cancelReservationByNameAndSlot(cancelName, cancelSlot)){
+        cout << "Reservation cancelled successfully!\n";
+    } else {
+        cout << "Failed to cancel reservation. No matching reservation found.\n";
+    }
+}
     break;
 case 3:
+cout << "Enter the customer name to search: ";
+string name;
+cin >> name;
+system.searchByCustomerName(name);
     break;
 case 4:
+cout << "Enter the time slot to view (0-11): ";
+int slotIndex;
+cin >> slotIndex;
+system.showTimeSlotOverview(slotIndex);
     break;  
 case 5:
+system.showMaitreReport();
     break;
 case 6:
+system.showCapacityUtilizationSummary();
     break;
 case 7:
+cout << "Enter the filename to export the Maître-d Report (e.g., maitre_report.txt): ";
+string filename;    
+cin >> filename;
+if (system.exportMaitreReport(filename)){
+    cout << "Maitre-d Report exported successfully!\n";
+} else {
+    cout << "Failed to export Maître-d Report.\n";
+}
     break;
 case 8:
 
-    cout << "Thank you for using Jalen's Restaurant Seating Management System!\n";
-    systemsaveReservations("../data/reservations.csv");
-    cout << "saving data and exiting...\n";
+cout << "Saving data and exiting...\n";
+system.saveReservations("../data/reservations.csv");
     break;
 
 default:

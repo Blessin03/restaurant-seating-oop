@@ -44,6 +44,7 @@ class ReservationSystem {
     bool loadTables(const string& filename);
     bool loadReservations(const string& filename);
     bool exportMaitreReport(const string& filename);
+    bool saveReservations(const string& filename);
 
     string slotToTime(int slotIdx) ;
 

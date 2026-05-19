@@ -497,3 +497,23 @@ file.close();
 
     return true;
 }
+
+bool ReservationSystem::saveReservations(const string& filename) {
+    ofstream file(filename);
+
+    if(!file.is_open()){
+        cout << "Error opening file " << filename << "\n";
+        return false;
+    }
+
+    for (const auto& reservation : reservations) {
+        file << reservation.getId() << ","
+             << reservation.getName() << ","
+             << reservation.getPartySize() << ","
+             << reservation.getSlotIdx() << ","
+             << reservation.getTableId() << "\n";
+    }
+
+    file.close();
+    return true;
+}
